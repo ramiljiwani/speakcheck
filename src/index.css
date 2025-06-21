@@ -96,6 +96,14 @@
     align-items: center;
     gap: var(--spacing-sm);
   }
+
+    /* new: flex column + center */
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   
   /* Buttons */
   .btn {
@@ -245,4 +253,23 @@
     flex-wrap: wrap;         /* → allow pills to wrap onto new lines */
     margin-bottom: var(--spacing-md);
   }
+
+  .tab-content > * {
+    text-align: center;
+  }
+
+  /* full-screen grey background + flex centering */
+.home {
+  min-height: 100vh;
+  background-color: var(--color-background);
+  padding: var(--spacing-lg) 0;
+}
+
+/* bump up the title */
+.h1 {
+  font-family: var(--font-heading);
+  font-size: 4rem;            /* adjust as you like */
+  color: var(--color-text-primary);
+}
+
   
