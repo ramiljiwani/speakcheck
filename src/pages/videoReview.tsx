@@ -60,6 +60,9 @@ export default function VideoFeedbackPage() {
     return <div className="p-lg text-center">Loading feedback…</div>;
   }
 
+
+  const videoURL = "http://127.0.0.1:5000/video";
+
   return (
     <div
       className="container flex"
@@ -68,7 +71,7 @@ export default function VideoFeedbackPage() {
       {/* Video Panel */}
       <div className="card" style={{ flex: 1 }}>
         <div className="video-container">
-          <VideoDisplay />
+          <VideoDisplay src={videoURL}/>
         </div>
       </div>
 

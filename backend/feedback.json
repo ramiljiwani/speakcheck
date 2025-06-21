@@ -1,51 +1,50 @@
 {
   "Posture & Physical Presence": {
-    "Analysis": "The speaker stands at a podium, occasionally leaning or gesturing to emphasize points. He walks around a bit at the beginning but stays mainly near the podium. His gestures are natural and support his points.",
+    "Analysis": "The speaker uses gestures and moves around the podium, which is engaging. He leans on the podium at times, appearing relaxed but may appear less commanding.",
     "Recommendations": [
-      "Continue to use natural gestures to add emphasis.",
-      "Vary movement to maintain audience engagement."
+      "Vary gestures to keep them natural and expressive.",
+      "Be mindful of the amount of time spent leaning on the podium to not appear too casual."
     ],
-    "Relevant Video Section": "0:00-0:40"
+    "Relevant Video Section": "0:00-0:09"
   },
   "Eye Contact": {
-    "Analysis": "The speaker makes an effort to engage with the audience through eye contact. At times, he seems to be looking around to engage as many people as possible.",
+    "Analysis": "The speaker appears to scan the audience, making an effort to include everyone.",
     "Recommendations": [
-      "Maintain steady eye contact with different sections of the audience.",
-      "Vary focal points to address specific individuals."
+      "Continue to distribute eye contact evenly throughout the audience.",
+      "Hold eye contact for brief moments with different individuals to make a personal connection."
     ],
-    "Relevant Video Section": "0:00-0:12"
+    "Relevant Video Section": "0:00-0:10"
   },
   "Vocal Delivery": {
-    "Analysis": "The speaker's vocal delivery is clear and engaging, with changes in tone to emphasize specific ideas or create humor. His pace varies. He pauses at strategic points.",
+    "Analysis": "His vocal delivery is clear and fairly well-paced, varying his tone for emphasis. Uses pauses effectively.",
     "Recommendations": [
-      "Continue using vocal variety to maintain audience engagement.",
-      "Practice projecting voice to reach the back of the room without shouting."
+      "Continue to vary vocal tone to maintain engagement.",
+      "Incorporate small speed variation in speaking to avoid monotony"
     ],
-    "Relevant Video Section": "0:00-0:05"
+    "Relevant Video Section": "0:01-0:08"
   },
   "Content & Structure": {
-    "Analysis": "The speech includes an advertisement example followed by personal anecdote. Structure is a bit scattered as the speaker shifts subjects rapidly.",
+    "Analysis": "The speaker begins with appreciation and humor, then clearly outlines the intention of his talk to get the audience thinking differently. Uses a visual from the past to engage the audience.",
     "Recommendations": [
-      "Organize content into clearly defined sections.",
-      "Avoid abrupt changes in topic or tone.",
-      "Start with a compelling attention grabber to set the tone."
+      "Maintain clear transitions between segments of the presentation.",
+      "Continue to use relevant visuals and historical context to illustrate points."
     ],
-    "Relevant Video Section": "0:40-1:21"
+    "Relevant Video Section": "0:11-0:47"
   },
   "Nervousness/Comfort": {
-    "Analysis": "The speaker appears comfortable and confident. His voice and movements show a certain level of expertise and familiarity with the topic and presentation setting.",
+    "Analysis": "The speaker appears comfortable and confident, based on his relaxed demeanor and use of humor.",
     "Recommendations": [
-      "Maintain your level of comfort and confidence.",
-      "Channel any residual nervous energy into positive engagement with the audience."
+      "Maintain current level of engagement.",
+      "Continue to appear authentic."
     ],
-    "Relevant Video Section": "0:01-0:09"
+    "Relevant Video Section": "0:01-0:10"
   },
   "Summary": {
-    "Overall Assessment": "The speaker delivers an informative and engaging presentation. His content is interesting. The speaker has a clear presentation style. There are opportunities to improve organization and structure.",
+    "Overall Assessment": "The speaker delivers an engaging opening, uses humor effectively, and maintains a confident and informed presence. He builds rapport well by referring to shared experiences.",
     "Actionable Steps": [
-      "Develop a structured outline to ensure a logical flow of information.",
-      "Incorporate more deliberate pacing to emphasize key points.",
-      "Continue to interact with the audience with natural gestures and eye contact."
+      "Continue to vary gestures to maintain audience attention.",
+      "Distribute eye contact to all parts of the audience.",
+      "Maintain a clear outline for the presentation with logical flow."
     ]
   }
 }

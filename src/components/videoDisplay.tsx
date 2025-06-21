@@ -1,14 +1,18 @@
-export default function VideoDisplay() {
+interface VideoDisplayProps {
+  src: string;
+}
 
-    const videoUrl = "backend/uploads/upload.mov"
+export default function VideoDisplay({ src }: VideoDisplayProps) {
     
       return (
-        <div className="video-container mb-md">
+        <div className="video-container video mb-md">
           <video
-            src={videoUrl}
+            src={src}
             controls
             preload="metadata"
-            style={{ borderRadius: "var(--radius-md)" }}
+            style={{
+              borderRadius: 'var(--radius-md)',
+            }}
           >
             Your browser does not support the video tag.
           </video>
