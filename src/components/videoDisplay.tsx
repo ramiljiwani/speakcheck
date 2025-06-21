@@ -9,7 +9,6 @@ export default function VideoDisplay({ file, src }: VideoPlayerProps) {
     const [videoUrl, setVideoUrl] = useState<string | undefined>(src);
 
     useEffect(() => {
-        // If a File is provided, generate an object URL for preview
         if (file) {
           const objectUrl = URL.createObjectURL(file);
           setVideoUrl(objectUrl);
@@ -19,7 +18,6 @@ export default function VideoDisplay({ file, src }: VideoPlayerProps) {
         }
       }, [file]);
     
-      // Don't render anything if we don't yet have a URL
       if (!videoUrl) return null;
     
       return (

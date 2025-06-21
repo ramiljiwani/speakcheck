@@ -1,10 +1,13 @@
 import { useState, type ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
 export default function FileUploader() {
     const [file, setFile] = useState<File | null>(null);
     const [status, setStatus] = useState<UploadStatus>("idle");
+    const navigate = useNavigate();
 
     function handleFileChange(e: ChangeEvent<HTMLInputElement>) 
         {
@@ -27,6 +30,7 @@ export default function FileUploader() {
       
             if (!resp.ok) throw new Error(`Server error: ${resp.statusText}`);
             setStatus("success");
+            navigate("/videoReview")
           } catch (err) {
             console.error(err);
             setStatus("error");
