@@ -64,78 +64,87 @@ export default function VideoFeedbackPage() {
   const videoURL = "http://127.0.0.1:5000/video";
 
   return (
-    <div
-      className="container flex"
-      style={{ gap: 'var(--spacing-xl)', paddingTop: 'var(--spacing-lg)' }}
-    >
-      {/* Video Panel */}
-      <div className="card" style={{ flex: 1 }}>
-        <div className="video-container">
-          <VideoDisplay src={videoURL}/>
-        </div>
-      </div>
-
-      {/* Feedback Panel */}
-      <aside
-        className="card"
-        style={{
-          flex: 1,
-          maxHeight: '100vh',
-          overflowY: 'auto',
-          padding: 'var(--spacing-lg)',
-        }}
+    <div className="home flex-col">
+      <h1 
+          className="h1"
+          style={{ paddingTop: '1vh', marginBottom: '10vh' }}
       >
-        {/* Tab Bar */}
-        <div className="tab-bar">
-          {SECTIONS.map((section) => (
-            <button
-              key={section}
-              className={`btn ${activeTab === section ? 'btn-primary' : 'btn-secondary'}`}
-              onClick={() => setActiveTab(section)}
-            >
-              {section}
-            </button>
-          ))}
+          speakcheck
+      </h1>
+      <div
+        className="container flex"
+        style={{ gap: 'var(--spacing-xl)', paddingTop: 'var(--spacing-lg)' }}
+      >
+        {/* Video Panel */}
+        <div className="card" style={{ flex: 1 }}>
+          <div className="video-container">
+            <VideoDisplay src={videoURL}/>
+          </div>
         </div>
 
-        {/* Active Section */}
-        {activeTab !== 'Summary' ? (
-          // one of the five SectionDetail tabs
-          (() => {
-            const d = feedback[activeTab] as SectionDetail;
-            return (
-              <section>
-                <h2 className="h4">{activeTab}</h2>
-                <p>{d.Analysis}</p>
-                <ul className="list-disc list-inside mb-sm">
-                  {d.Recommendations.map((rec, i) => (
-                    <li key={i}>{rec}</li>
-                  ))}
-                </ul>
-                <p className="mt-sm">
-                  <strong>Relevant Video Section:</strong> {d['Relevant Video Section']}
-                </p>
-              </section>
-            );
-          })()
-        ) : (
-          // Summary tab
-          (() => {
-            const s = feedback.Summary;
-            return (
-              <section>
-                <h2 className="h4">Summary</h2>
-                <p>{s['Overall Assessment']}</p>
-                <ul className="list-disc list-inside">
-                  {s['Actionable Steps'].map((step, i) => (
-                    <li key={i}>{step}</li>
-                  ))}
-                </ul>
-              </section>
-            );
-          })()
-        )}
-      </aside>
+        {/* Feedback Panel */}
+        <aside
+          className="card"
+          style={{
+            flex: 1,
+            maxHeight: '100vh',
+            overflowY: 'auto',
+            padding: 'var(--spacing-lg)',
+          }}
+        >
+          {/* Tab Bar */}
+          <div className="tab-bar">
+            {SECTIONS.map((section) => (
+              <button
+                key={section}
+                className={`btn ${activeTab === section ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setActiveTab(section)}
+              >
+                {section}
+              </button>
+            ))}
+          </div>
+
+          {/* Active Section */}
+          {activeTab !== 'Summary' ? (
+            // one of the five SectionDetail tabs
+            (() => {
+              const d = feedback[activeTab] as SectionDetail;
+              return (
+                <section>
+                  <h2 className="h4">{activeTab}</h2>
+                  <p>{d.Analysis}</p>
+                  <ul className="list-disc list-inside mb-sm">
+                    {d.Recommendations.map((rec, i) => (
+                      <li key={i}>{rec}</li>
+                    ))}
+                  </ul>
+                  <p className="mt-sm">
+                    <strong>Relevant Video Section:</strong> {d['Relevant Video Section']}
+                  </p>
+                </section>
+              );
+            })()
+          ) : (
+            // Summary tab
+            (() => {
+              const s = feedback.Summary;
+              return (
+                <section>
+                  <h2 className="h4">Summary</h2>
+                  <p>{s['Overall Assessment']}</p>
+                  <ul className="list-disc list-inside">
+                    {s['Actionable Steps'].map((step, i) => (
+                      <li key={i}>{step}</li>
+                    ))}
+                  </ul>
+                </section>
+              );
+            })()
+          )}
+        </aside>
+      </div>
+      
     </div>
   );
 }

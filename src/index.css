@@ -272,4 +272,71 @@
   color: var(--color-text-primary);
 }
 
-  
+/* Wrap video + sidebar */
+.record-main {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+  justify-content: center;
+}
+
+.video-preview {
+  width: 100%;
+  border: 1px solid var(--color-secondary); /* light border for clarity */
+  border-radius: var(--radius-md);
+  aspect-ratio: 16/9; /* maintains 16:9 aspect ratio */
+  object-fit: cover;
+}
+
+
+/* Sidebar box */
+.sidebar {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-md);
+}
+
+/* lay out timer + button horizontally */
+.sidebar-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* Timer style (unchanged) */
+.timer {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+}
+
+/* Record / Stop button (unchanged) */
+.btn-record,
+.btn-stop {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-record {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+.btn-record:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-stop {
+  background-color: var(--color-secondary);
+  color: #fff;
+}
+.btn-stop:hover {
+  background-color: var(--color-secondary-hover);
+  transform: translateY(-1px);
+}

@@ -11,7 +11,7 @@ export default function Home() {
         <div className="home flex-col">
             <h1 
                 className="h1"
-                style={{ paddingTop: '1vh' }}
+                style={{ paddingTop: '1vh', marginBottom: '10vh' }}
             >
                 speakcheck
             </h1>

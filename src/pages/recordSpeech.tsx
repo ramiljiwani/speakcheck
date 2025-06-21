@@ -1,104 +1,105 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
-// recordSpeech.tsx
+
 const RecordSpeech: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [stream, setStream] = useState<MediaStream | null>(null);
-  const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
-  const [chunks, setChunks] = useState<BlobPart[]>([]);
-  const [recording, setRecording] = useState(false);
+  const recorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<BlobPart[]>([]);
 
-  // Request camera + microphone access once
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [recording, setRecording] = useState(false);
+  const [seconds, setSeconds] = useState(0);
+  const [videoBlob, setVideoBlob] = useState<Blob | null>(null);
+  const intervalRef = useRef<number | null>(null);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-      .then(mediaStream => {
-        setStream(mediaStream);
-        if (videoRef.current) {
-          videoRef.current.srcObject = mediaStream;
-        }
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then(ms => {
+        setStream(ms);
+        if (videoRef.current) videoRef.current.srcObject = ms;
       })
-      .catch(err => console.error('getUserMedia error:', err));
+      .catch(console.error);
   }, []);
 
-  // Autoplay the video preview
   useEffect(() => {
-    if (stream) {
-      videoRef.current?.play();
-    }
+    if (stream) videoRef.current?.play();
   }, [stream]);
 
-  // Start recording into chunks
   const startRecording = () => {
     if (!stream) return;
-    const options = { mimeType: 'video/webm; codecs=vp8' };
-    const mediaRecorder = new MediaRecorder(stream, options);
-    mediaRecorder.ondataavailable = e => {
+    chunksRef.current = [];        // clear the buffer
+    setVideoBlob(null);
+    setSeconds(0);
+    intervalRef.current = window.setInterval(() => {
+      setSeconds(s => s + 1);
+    }, 1000);
+
+    const mr = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp8' });
+    recorderRef.current = mr;
+
+    mr.ondataavailable = e => {
       if (e.data.size > 0) {
-        setChunks(prev => [...prev, e.data]);
+        chunksRef.current.push(e.data);
       }
     };
-    mediaRecorder.onstop = handleStop;
-    mediaRecorder.start();
-    setRecorder(mediaRecorder);
-    setChunks([]);
+
+    mr.onstop = () => {
+      // build the blob from our ref
+      const blob = new Blob(chunksRef.current, { type: 'video/webm' });
+      setVideoBlob(blob);
+    };
+
+    mr.start();
     setRecording(true);
   };
 
-  // Stop recording
   const stopRecording = () => {
-    recorder?.stop();
+    recorderRef.current?.stop();
     setRecording(false);
-  };
-
-  // Called when recorder stops: assemble blob and upload
-  const handleStop = () => {
-    const blob = new Blob(chunks, { type: 'video/webm' });
-    uploadVideo(blob);
-  };
-
-  // Upload blob to Flask backend
-  const uploadVideo = async (blob: Blob) => {
-    const formData = new FormData();
-    formData.append('file', blob, 'recording.webm');
-
-    try {
-      const response = await fetch('http://localhost:5000/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      if (!response.ok) {
-        const text = await response.text();
-        console.error('Upload failed:', text);
-      } else {
-        console.log('Upload success');
-      }
-    } catch (err) {
-      console.error('Upload error:', err);
+    if (intervalRef.current !== null) {
+      window.clearInterval(intervalRef.current);
     }
   };
 
+  const uploadVideo = async (blob: Blob) => {
+    const form = new FormData();
+    form.append('file', blob, 'recording.webm');
+    try {
+      const res = await fetch('http://127.0.0.1:5000/upload', {
+        method: 'POST',
+        body: form,
+      });
+      if (!res.ok) throw new Error(await res.text());
+      console.log('Upload success');
+      navigate("/display")
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const formatTime = (t: number) =>
+    `${Math.floor(t/60).toString().padStart(2,'0')}:${(t%60).toString().padStart(2,'0')}`;
+
   return (
-    <div className="p-4">
-      {/* Live preview mirrored like a mirror */}
-      <video
-        ref={videoRef}
-        style={{ transform: 'scaleX(-1)' }}
-        className="w-full max-w-md border"
-        muted
-        autoPlay
-        playsInline
-      />
-      <div className="mt-2">
-        {!recording ? (
-          <button onClick={startRecording} className="px-4 py-2 bg-green-500 text-white rounded">
-            Start Recording
-          </button>
-        ) : (
-          <button onClick={stopRecording} className="px-4 py-2 bg-red-500 text-white rounded">
-            Stop Recording
-          </button>
+    <div className="record-root">
+      <video ref={videoRef} className="video-preview mirror" muted autoPlay playsInline style={{transform: 'scaleX(-1)'}}/>
+      <div className="controls">
+        <div className="timer">{formatTime(seconds)}</div>
+        {!recording
+          ? <button onClick={startRecording} className="btn-record">Record</button>
+          : <button onClick={stopRecording} className="btn-stop">Stop</button>
+        }
+        {!recording && videoBlob && (
+          <button onClick={() => uploadVideo(videoBlob)} className="btn-upload">Upload</button>
         )}
       </div>
+      {!recording && videoBlob && (
+        <video src={URL.createObjectURL(videoBlob)} controls style={{ marginTop: 10, maxWidth: '100%' }}/>
+      )}
     </div>
   );
 };

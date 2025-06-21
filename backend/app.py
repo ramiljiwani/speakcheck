@@ -5,6 +5,7 @@ from check import analyze
 import os
 import json
 from pathlib import Path
+import subprocess
 
 app = Flask(__name__)
 CORS(app)
@@ -20,26 +21,63 @@ def read_feedback_text(path: str = "feedback.json") -> str:
     """
     return Path(path).read_text(encoding="utf-8")
 
+def convert_webm_to_mp4(webm_path: str, mp4_path: str = None) -> str:
+    if mp4_path is None:
+        base, _ = os.path.splitext(webm_path)
+        mp4_path = base + '.mp4'
+
+    # -y: overwrite existing, -movflags +faststart for web streaming
+    cmd = [
+        'ffmpeg', '-y',
+        '-f', 'webm',
+        '-i', webm_path,
+        '-c:v', 'libx264',
+        '-preset', 'fast',
+        '-crf', '23',
+        '-c:a', 'aac',
+        '-b:a', '128k',
+        '-movflags', '+faststart',
+        mp4_path
+    ]
+
+    subprocess.run(cmd, check=True)
+    return mp4_path
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return {'error': 'No file part in the request'}, 400
 
     file = request.files['file']
-    
     if file.filename == '':
         return {'error': 'No file selected'}, 400
     
-    filetype = os.path.splitext(file.filename)[1].lower()
 
-    if file:
-        filename = "upload" + filetype
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-        analyze(filepath)
-        return {'message': 'File uploaded successfully', 'path': filepath}, 200
+    # secure the filename and set up paths
+    original_name = secure_filename(file.filename)
+    ext = Path(original_name).suffix.lower()
+    new_name = 'upload' + ext
+    save_path = os.path.join(app.config['UPLOAD_FOLDER'], new_name)
 
-    return {'error': 'Something went wrong'}, 500
+    # 1) Save the uploaded data once
+    file.save(save_path)
+
+    # 2) If it's webm, convert and point to the new file
+    if ext == '.webm':
+        try:
+            final_path = convert_webm_to_mp4(save_path)
+        except subprocess.CalledProcessError as e:
+            return {'error': f'Conversion failed: {e.stderr.decode()}'}, 500
+    else:
+        final_path = save_path
+
+    # 3) Run your analysis on the right file
+    analyze(final_path)
+
+    return {
+        'message': 'File uploaded successfully',
+        'path': final_path
+    }, 200
 
 @app.route('/feedback', methods=['GET'])
 def fetch_feedback():
