@@ -23,7 +23,6 @@ export default function FileUploader() {
             const resp = await fetch("http://localhost:5173/upload", {
                 method: "POST",
                 body: formData,
-                // If your Flask is on a different origin, make sure CORS is enabled server-side.
             });
       
             if (!resp.ok) throw new Error(`Server error: ${resp.statusText}`);
