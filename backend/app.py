@@ -3,6 +3,8 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from check import analyze
 import os
+import json
+from pathlib import Path
 
 app = Flask(__name__)
 CORS(app)
@@ -11,6 +13,12 @@ CORS(app)
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+def read_feedback_text(path: str = "feedback.json") -> str:
+    """
+    Open the JSON file at `path` and return its raw text content.
+    """
+    return Path(path).read_text(encoding="utf-8")
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -32,6 +40,11 @@ def upload_file():
         return {'message': 'File uploaded successfully', 'path': filepath}, 200
 
     return {'error': 'Something went wrong'}, 500
+
+@app.route('/feedback', methods=['GET'])
+def fetchFeedback():
+    print(read_feedback_text)
+    return read_feedback_text()
 
 if __name__ == '__main__':
     app.run(debug=True)

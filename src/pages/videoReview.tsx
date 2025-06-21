@@ -1,37 +1,46 @@
-import { useEffect, useState } from 'react';
-import feedbackData from '../../feedback.json'
+import React, { useEffect, useState } from 'react';
 import VideoDisplay from '../components/videoDisplay';
-import { type Feedback } from '../types/feedback';
 
 export default function VideoFeedbackPage() {
-  const [feedback, setFeedback] = useState<Feedback>({});
+  const [rawFeedback, setRawFeedback] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Load feedback from JSON file
-    setFeedback(feedbackData as Feedback);
+    fetchFeedback();
   }, []);
+
+  async function fetchFeedback() {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/feedback");
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const text = await response.text();
+      setRawFeedback(text);
+      console.log('Feedback loaded:', text);
+    } catch (err) {
+      console.error('Failed to load feedback:', err);
+      setError('Could not load feedback.');
+    }
+  }
+
+  if (error) {
+    return (
+      <div className="p-6 text-red-500">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col md:flex-row gap-8 p-6">
-      {/* Feedback Section */}
-      <div className="w-full md:w-1/2 overflow-y-auto">
-        {Object.entries(feedback).map(([section, data]) => (
-          <div key={section} className="mb-8">
-            <h2 className="text-2xl font-semibold mb-2">{section}</h2>
-            {data.Observations && (
-              <p className="mb-2">
-                <strong>Observations:</strong> {data.Observations}
-              </p>
-            )}
-            {data.Recommendations && (
-              <ul className="list-disc list-inside space-y-1">
-                {data.Recommendations.map((rec, idx) => (
-                  <li key={idx}>{rec}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ))}
+      {/* Raw Feedback Section */}
+      <div className="w-full md:w-1/2 overflow-auto bg-gray-50 p-4 rounded">
+        {!rawFeedback ? (
+          <p>Loading feedback...</p>
+        ) : (
+          <pre className="whitespace-pre-wrap">{rawFeedback}</pre>
+        )}
       </div>
 
       {/* Video Section */}

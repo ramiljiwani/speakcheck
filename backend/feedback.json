@@ -1,55 +1,69 @@
 {
-  "Posture & Physical Presence": {
-    "Assessment": "Posture is somewhat relaxed but could be more upright to project confidence. You are seated, which limits body language, but more visible gestures can improve audience engagement.",
-    "Recommendations": [
-      "Sit up straight with your shoulders back, avoiding slouching. This projects confidence and improves breathing.",
-      "Even while seated, use subtle hand gestures to emphasize points and keep the audience engaged.",
-      "Be mindful of your hand positioning, avoiding fidgeting or distracting movements."
-    ],
-    "Timestamp": "0:00-0:13 (General observation throughout the video)"
-  },
-  "Eye Contact": {
-    "Assessment": "Eye contact is present, but the angle and fixed position suggest you are primarily looking at the camera. More variation in gaze can create a more natural and engaging feel.",
-    "Recommendations": [
-      "Practice varying your gaze slightly while speaking, as if you're making eye contact with different individuals in the audience.",
-      "Remember to blink normally, as prolonged staring can appear unnatural.",
-      "Avoid glancing at yourself or your surroundings while recording, which can be distracting."
-    ],
-    "Timestamp": "0:01-0:07 (When showing the prototype, focus remains on the object, losing some eye contact)"
-  },
-  "Vocal Delivery": {
-    "Assessment": "Your voice is clear and understandable. Pace is moderate. However, the speech lacks inflection and variation in tone, making it sound a bit monotonous.",
-    "Recommendations": [
-      "Practice varying your pitch and tone to add emphasis to key words and phrases.",
-      "Incorporate pauses for dramatic effect or to allow the audience time to process information.",
-      "Record yourself speaking and listen back to identify areas where you can improve your vocal variation."
-    ],
-    "Timestamp": "0:00-0:14 (Overall, the vocal delivery is somewhat flat.)"
-  },
-  "Content & Structure": {
-    "Assessment": "Content is concise and to the point. The introduction of the prototype and the announcement of future parts create a clear structure.",
-    "Recommendations": [
-      "Consider adding a brief summary of what you've covered at the end to reinforce key takeaways.",
-      "Plan your content in advance to ensure a logical flow and avoid rambling.",
-      "Use visual aids (e.g., graphics, text overlays) to enhance understanding and engagement."
-    ],
-    "Timestamp": "0:02-0:08 (Clear presentation of the prototype and its current state)"
-  },
-  "Nervousness/Comfort": {
-    "Assessment": "You seem reasonably comfortable, but the delivery could be more relaxed and natural.",
-    "Recommendations": [
-      "Practice your presentation several times beforehand to become more familiar with the material.",
-      "Use relaxation techniques (e.g., deep breathing) to calm your nerves before recording.",
-      "Try to view the camera as a friendly person you're having a conversation with."
-    ],
-    "Timestamp": "0:00-0:14 (The delivery is slightly reserved but generally comfortable)"
-  },
-  "Summary": {
-    "Overall Summary": "You possess the fundamental skills for effective communication. Improvements can be made in physical presence, vocal delivery, and overall comfort to enhance your presentations further.",
-    "Actionable Steps": [
-      "Practice maintaining good posture and using gestures while speaking.",
-      "Focus on varying your vocal tone and using pauses strategically.",
-      "Prepare your content in advance and rehearse to increase your comfort level."
-    ]
-  }
+  "Feedback": [
+    {
+      "Category": "Posture & Physical Presence",
+      "Observations": [
+        "Your posture looks very relaxed. When starting to speak, the initial angle is too low. It is difficult to follow the video when you are so low."
+      ],
+      "Recommendations": [
+        "Sit up straight. Try to engage your core muscles to maintain good posture.",
+        "Adjust the camera angle, or your chair height so that the camera's perspective is level with or slightly above your face."
+      ]
+    },
+    {
+      "Category": "Eye Contact",
+      "Observations": [
+        "Eye contact seems to be naturally okay. It is difficult to know if your eyes are focused on the camera. You do stare at the camera directly at times."
+      ],
+      "Recommendations": [
+        "Focus on the camera. Make sure the camera is at eye-level.",
+        "Practice engaging the camera as if you are having a face to face conversation with one person."
+      ]
+    },
+    {
+      "Category": "Vocal Delivery",
+      "Observations": [
+        "Your speaking is clear and easy to understand.",
+        "The tone of voice is very relaxed, which might come across as too casual.",
+        "The tempo of your speech is a little slow."
+      ],
+      "Recommendations": [
+        "Experiment with varying the speed and cadence of your voice to keep your audience engaged.",
+        "Try speaking with more energy and projection, this will give a more dynamic feel.",
+        "Practice speaking a little faster, but be aware of clarity."
+      ]
+    },
+    {
+      "Category": "Content & Structure",
+      "Observations": [
+        "The structure is easy to follow with an introudction and a call to action.",
+        "The explanation of the object you are holding is short."
+      ],
+      "Recommendations": [
+        "Think of how you want to communicate your material to improve the structure of your statements.",
+        "Consider adding more detail as to what the prototype is, or what you plan to do."
+      ]
+    },
+    {
+      "Category": "Nervousness/Comfort",
+      "Observations": [
+        "You seem relatively comfortable, but not very energetic.",
+        "You avoid awkward pauses. Speaking rate is fairly consistent."
+      ],
+      "Recommendations": [
+        "Try to infuse your speaking with more personality and enthusiasm.",
+        "If you know that you are recording, take a deep breath and mentally prepare yourself."
+      ]
+    },
+    {
+      "Category": "Summary",
+      "Observations": [
+        "Speaking is clear and understandable, but lacks projection, energy and structure."
+      ],
+      "Recommendations": [
+        "Adjust your posture and camera position to better engage your audience.",
+        "Practice speaking with more energy and vary your tempo to create dynamic delivery."
+      ]
+    }
+  ]
 }
