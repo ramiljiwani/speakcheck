@@ -35,18 +35,35 @@ export default function FileUploader() {
     }
 
     return (
-        <div>
-            <input
-                type="file"
-                accept=".mov,.mp4"
-                onChange={handleFileChange}
-            />
+        <div className="container max-w-md card text-center">
+            <h2 className="mb-md">Upload Your Video</h2>
+            <div>
+                <label className="dropzone mb-md">
+                    {file ? file.name : "Click here or drag & drop to select a file"}
+                    <input
+                    type="file"
+                    accept=".mov,.mp4"
+                    onChange={handleFileChange}
+                    className="input mb-md"
+                    />
+                </label>
+            </div>
             { file && status !== "uploading" &&
-                <button>Upload</button>
+                <button 
+                    onClick={handleUpload}
+                    className="btn btn-primary mb-md"
+                >
+                    Upload
+                </button>
             }
-            {status === "uploading" && <p>Uploading…</p>}
-            {status === "success" && <p style={{ color: "green" }}>Upload successful!</p>}
-            {status === "error" && <p style={{ color: "red" }}>Upload failed.</p>}
+            {status === "success" && (
+            <div className="alert alert-success">
+                Upload successful!
+                </div>
+            )}
+            {status === "error" && (
+            <div className="alert alert-error">Upload failed. Please try again.</div>
+            )}
         </div>
     )
 }

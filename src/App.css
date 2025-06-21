@@ -1,0 +1,10 @@
+/* make the wrapper take up the full viewport and center its contents */
+.app-container {
+    height: 100vh;               /* full viewport height */
+    display: flex;               /* establish flexbox */
+    align-items: center;         /* vertical centering */
+    justify-content: center;     /* horizontal centering (optional) */
+    padding: var(--spacing-md);  /* optional side padding */
+    background-color: var(--color-background);
+  }
+  
