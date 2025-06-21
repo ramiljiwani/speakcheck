@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import VideoDisplay from '../components/videoDisplay';
+import { useNavigate } from "react-router-dom";
+
 
 interface SectionDetail {
   Analysis: string;
@@ -37,6 +39,7 @@ export default function VideoFeedbackPage() {
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<keyof Feedback>(SECTIONS[0]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -144,7 +147,12 @@ export default function VideoFeedbackPage() {
           )}
         </aside>
       </div>
-      
+      <button 
+        className='btn btn-primary'
+        onClick={() => navigate('/')}
+        >
+          Practice Again
+      </button>
     </div>
   );
 }

@@ -1,8 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import FileUploader from './components/fileUploader'
 import VideoFeedbackPage from './pages/videoReview'
-import RecordSpeech from './pages/recordSpeech'
 import Home from './pages/home'
 
 function App() {

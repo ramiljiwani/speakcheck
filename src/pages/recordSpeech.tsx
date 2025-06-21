@@ -94,12 +94,9 @@ const RecordSpeech: React.FC = () => {
           : <button onClick={stopRecording} className="btn-stop">Stop</button>
         }
         {!recording && videoBlob && (
-          <button onClick={() => uploadVideo(videoBlob)} className="btn-upload">Upload</button>
+          <button onClick={() => uploadVideo(videoBlob)} className="btn-record">Upload</button>
         )}
       </div>
-      {!recording && videoBlob && (
-        <video src={URL.createObjectURL(videoBlob)} controls style={{ marginTop: 10, maxWidth: '100%' }}/>
-      )}
     </div>
   );
 };

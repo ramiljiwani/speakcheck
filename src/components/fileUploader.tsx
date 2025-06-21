@@ -38,7 +38,7 @@ export default function FileUploader() {
     }
 
     return (
-        <div className="container max-w-md card text-center">
+        <div className="container card text-center">
             <h2 className="mb-md">Upload Your Video</h2>
             <div>
                 <label className="dropzone mb-md">
