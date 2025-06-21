@@ -21,7 +21,7 @@ def upload_file():
         return {'error': 'No file selected'}, 400
 
     if file:
-        filename = secure_filename(file.filename)
+        filename = "upload"
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         return {'message': 'File uploaded successfully', 'path': filepath}, 200
