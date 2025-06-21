@@ -40,7 +40,7 @@ def analyze(video):
         json_str = match.group(1)
         try:
             parsed = json.loads(json_str)
-            with open("speaking_feedback.json", "w") as f:
+            with open("feedback.json", "w") as f:
                 json.dump(parsed, f, indent=2)
             print("✅ JSON extracted and saved.")
         except json.JSONDecodeError:
@@ -51,5 +51,3 @@ def analyze(video):
 
     # Step 5: Print the results
     print(response.text)
-
-analyze("/Users/ramiljiwani/Desktop/ReactApps/speakcheck/backend/IMG_4333.MOV")

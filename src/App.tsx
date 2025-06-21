@@ -1,13 +1,18 @@
 import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import FileUploader from './components/fileUploader'
 import VideoDisplay from './components/videoDisplay'
-import VideoReview from './pages/videoReview'
 
 function App() {
 
   return (
     <div className='app-container'>
-      <VideoReview src="test.mp4"/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<FileUploader />} />
+          <Route path="/display" element={<VideoDisplay />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }

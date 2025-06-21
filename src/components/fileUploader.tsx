@@ -30,7 +30,7 @@ export default function FileUploader() {
       
             if (!resp.ok) throw new Error(`Server error: ${resp.statusText}`);
             setStatus("success");
-            navigate("/videoReview")
+            navigate("/display")
           } catch (err) {
             console.error(err);
             setStatus("error");

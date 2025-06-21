@@ -1,24 +1,6 @@
-import { useEffect, useState } from "react";
+export default function VideoDisplay() {
 
-interface VideoPlayerProps {
-    file?: File;
-    src?: string;
-  }
-
-export default function VideoDisplay({ file, src }: VideoPlayerProps) {
-    const [videoUrl, setVideoUrl] = useState<string | undefined>(src);
-
-    useEffect(() => {
-        if (file) {
-          const objectUrl = URL.createObjectURL(file);
-          setVideoUrl(objectUrl);
-          return () => {
-            URL.revokeObjectURL(objectUrl);
-          };
-        }
-      }, [file]);
-    
-      if (!videoUrl) return null;
+    const videoUrl = "backend/uploads/upload.mov"
     
       return (
         <div className="video-container mb-md">

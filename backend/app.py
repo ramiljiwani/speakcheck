@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
+from check import analyze
 import os
 
 app = Flask(__name__)
@@ -20,11 +21,14 @@ def upload_file():
     
     if file.filename == '':
         return {'error': 'No file selected'}, 400
+    
+    filetype = os.path.splitext(file.filename)[1].lower()
 
     if file:
-        filename = "upload"
+        filename = "upload" + filetype
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
+        analyze(filepath)
         return {'message': 'File uploaded successfully', 'path': filepath}, 200
 
     return {'error': 'Something went wrong'}, 500

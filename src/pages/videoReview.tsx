@@ -1,44 +1,42 @@
-import React from "react";
-import "../index.css";
-import VideoDisplay from "../components/videoDisplay";
+import { useEffect, useState } from 'react';
+import feedbackData from '../../feedback.json'
+import VideoDisplay from '../components/videoDisplay';
+import { type Feedback } from '../types/feedback';
 
-interface VideoReviewPageProps {
-  file?: File;
-  src?: string;
-  /**
-   * The text or JSX you want to render next to the video.
-   */
-  children?: React.ReactNode;
-}
+export default function VideoFeedbackPage() {
+  const [feedback, setFeedback] = useState<Feedback>({});
 
-export default function VideoReview({ file, src, children }: VideoReviewPageProps) {
+  useEffect(() => {
+    // Load feedback from JSON file
+    setFeedback(feedbackData as Feedback);
+  }, []);
+
   return (
-    <div
-      className="container card"
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        gap: "var(--spacing-lg)",
-      }}
-    >
-      {/* Left column: video */}
-      <div style={{ flex: 1 }}>
-        <VideoDisplay file={file} src={src} />
+    <div className="flex flex-col md:flex-row gap-8 p-6">
+      {/* Feedback Section */}
+      <div className="w-full md:w-1/2 overflow-y-auto">
+        {Object.entries(feedback).map(([section, data]) => (
+          <div key={section} className="mb-8">
+            <h2 className="text-2xl font-semibold mb-2">{section}</h2>
+            {data.Observations && (
+              <p className="mb-2">
+                <strong>Observations:</strong> {data.Observations}
+              </p>
+            )}
+            {data.Recommendations && (
+              <ul className="list-disc list-inside space-y-1">
+                {data.Recommendations.map((rec, idx) => (
+                  <li key={idx}>{rec}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
       </div>
 
-      {/* Right column: text or feedback panel */}
-      <div style={{ flex: 1, padding: "var(--spacing-md)" }}>
-        <h3 className="mb-sm">Speech Feedback</h3>
-        <div className="text-secondary">
-          {children ?? (
-            <p>
-              {/* placeholder text */}
-              Your speech analysis and feedback will appear here. You can
-              display bullet points, scores, or recommendations based on your
-              app’s logic.
-            </p>
-          )}
-        </div>
+      {/* Video Section */}
+      <div className="w-full md:w-1/2 flex items-center justify-center">
+        <VideoDisplay />
       </div>
     </div>
   );
