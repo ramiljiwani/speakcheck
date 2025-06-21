@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RecordSpeech from "./recordSpeech";
 import FileUploader from "../components/fileUploader";
+import LiveSpeech from "./live";
 
 const TABS = ['pitch', 'live', 'upload'] as const;
 type Tab = typeof TABS[number];
@@ -38,8 +39,7 @@ export default function Home() {
 
             {activeTab === 'live' && (
             <div>
-                {/* TODO: drop in your Pitch visualization UI here */}
-                <p>Pitch UI placeholder</p>
+                <LiveSpeech/>
             </div>
             )}
 
