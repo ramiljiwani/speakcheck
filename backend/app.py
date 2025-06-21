@@ -1,8 +1,10 @@
 from flask import Flask, request
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 # Set upload folder
 UPLOAD_FOLDER = 'uploads'
@@ -15,7 +17,6 @@ def upload_file():
         return {'error': 'No file part in the request'}, 400
 
     file = request.files['file']
-    print("test")
     
     if file.filename == '':
         return {'error': 'No file selected'}, 400

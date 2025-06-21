@@ -20,7 +20,7 @@ export default function FileUploader() {
         formData.append("file", file);
 
         try {
-            const resp = await fetch("http://localhost:5173/upload", {
+            const resp = await fetch("http://127.0.0.1:5000/upload", {
                 method: "POST",
                 body: formData,
             });
