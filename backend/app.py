@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from check import analyze
@@ -42,9 +42,17 @@ def upload_file():
     return {'error': 'Something went wrong'}, 500
 
 @app.route('/feedback', methods=['GET'])
-def fetchFeedback():
-    print(read_feedback_text)
-    return read_feedback_text()
+def fetch_feedback():
+    """
+    Load feedback.json as a Python dict and return it
+    as a proper JSON response.
+    """
+    try:
+        feedback_path = Path("feedback.json")
+        data = json.loads(feedback_path.read_text(encoding="utf-8"))
+        return jsonify(data), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,6 +1,48 @@
 from google import genai
 import time
 
+prompt = """You are a JSON-only response generator. Watch the video I provide, then answer only with a single JSON object matching exactly this structure (no markdown, no explanation, no extra keys):
+
+{
+  "Posture & Physical Presence": {
+    "Analysis": "string",
+    "Recommendations": ["string", ...],
+    "Relevant Video Section": "string"
+  },
+  "Eye Contact": {
+    "Analysis": "string",
+    "Recommendations": ["string", ...],
+    "Relevant Video Section": "string"
+  },
+  "Vocal Delivery": {
+    "Analysis": "string",
+    "Recommendations": ["string", ...],
+    "Relevant Video Section": "string"
+  },
+  "Content & Structure": {
+    "Analysis": "string",
+    "Recommendations": ["string", ...],
+    "Relevant Video Section": "string"
+  },
+  "Nervousness/Comfort": {
+    "Analysis": "string",
+    "Recommendations": ["string", ...],
+    "Relevant Video Section": "string"
+  },
+  "Summary": {
+    "Overall Assessment": "string",
+    "Actionable Steps": ["string", ...]
+  }
+}
+
+- For every category except "Summary", fill in Analysis, an array of Recommendations, and the exact Relevant Video Section (timestamp).
+- For "Summary", fill in Overall Assessment and an array of Actionable Steps.
+- Be as precise as possible about timestamps (e.g. "0:07-0:14").
+- Do not wrap the JSON in markdown ticks or code fences.
+- Do not output anything else.
+"""
+
+
 
 def analyze(video):
     # Step 1: Set up the Gemini client
@@ -25,7 +67,7 @@ def analyze(video):
         model="gemini-2.0-flash",
         contents=[
             status,
-            "What could I (the person in the video) do to improve my speaking skills? Give examples on how to improve. Be as detailed as possible -- and include everything including posture, eye contact, pronunciation, etc. Be specific when you mention a part from the video and mention the time-stamp too (be precise). Could you put it in JSON format with the categories being: Posture & Physical Presence, Eye Contact, Vocal Delivery, Content & Structure, Nervousness/Comfort and Summary. Also other than the json, dont write aything else"
+            prompt
         ]
     )
 

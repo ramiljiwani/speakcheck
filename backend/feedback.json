@@ -1,69 +1,51 @@
 {
-  "Feedback": [
-    {
-      "Category": "Posture & Physical Presence",
-      "Observations": [
-        "Your posture looks very relaxed. When starting to speak, the initial angle is too low. It is difficult to follow the video when you are so low."
-      ],
-      "Recommendations": [
-        "Sit up straight. Try to engage your core muscles to maintain good posture.",
-        "Adjust the camera angle, or your chair height so that the camera's perspective is level with or slightly above your face."
-      ]
-    },
-    {
-      "Category": "Eye Contact",
-      "Observations": [
-        "Eye contact seems to be naturally okay. It is difficult to know if your eyes are focused on the camera. You do stare at the camera directly at times."
-      ],
-      "Recommendations": [
-        "Focus on the camera. Make sure the camera is at eye-level.",
-        "Practice engaging the camera as if you are having a face to face conversation with one person."
-      ]
-    },
-    {
-      "Category": "Vocal Delivery",
-      "Observations": [
-        "Your speaking is clear and easy to understand.",
-        "The tone of voice is very relaxed, which might come across as too casual.",
-        "The tempo of your speech is a little slow."
-      ],
-      "Recommendations": [
-        "Experiment with varying the speed and cadence of your voice to keep your audience engaged.",
-        "Try speaking with more energy and projection, this will give a more dynamic feel.",
-        "Practice speaking a little faster, but be aware of clarity."
-      ]
-    },
-    {
-      "Category": "Content & Structure",
-      "Observations": [
-        "The structure is easy to follow with an introudction and a call to action.",
-        "The explanation of the object you are holding is short."
-      ],
-      "Recommendations": [
-        "Think of how you want to communicate your material to improve the structure of your statements.",
-        "Consider adding more detail as to what the prototype is, or what you plan to do."
-      ]
-    },
-    {
-      "Category": "Nervousness/Comfort",
-      "Observations": [
-        "You seem relatively comfortable, but not very energetic.",
-        "You avoid awkward pauses. Speaking rate is fairly consistent."
-      ],
-      "Recommendations": [
-        "Try to infuse your speaking with more personality and enthusiasm.",
-        "If you know that you are recording, take a deep breath and mentally prepare yourself."
-      ]
-    },
-    {
-      "Category": "Summary",
-      "Observations": [
-        "Speaking is clear and understandable, but lacks projection, energy and structure."
-      ],
-      "Recommendations": [
-        "Adjust your posture and camera position to better engage your audience.",
-        "Practice speaking with more energy and vary your tempo to create dynamic delivery."
-      ]
-    }
-  ]
+  "Posture & Physical Presence": {
+    "Analysis": "The speaker stands at a podium, occasionally leaning or gesturing to emphasize points. He walks around a bit at the beginning but stays mainly near the podium. His gestures are natural and support his points.",
+    "Recommendations": [
+      "Continue to use natural gestures to add emphasis.",
+      "Vary movement to maintain audience engagement."
+    ],
+    "Relevant Video Section": "0:00-0:40"
+  },
+  "Eye Contact": {
+    "Analysis": "The speaker makes an effort to engage with the audience through eye contact. At times, he seems to be looking around to engage as many people as possible.",
+    "Recommendations": [
+      "Maintain steady eye contact with different sections of the audience.",
+      "Vary focal points to address specific individuals."
+    ],
+    "Relevant Video Section": "0:00-0:12"
+  },
+  "Vocal Delivery": {
+    "Analysis": "The speaker's vocal delivery is clear and engaging, with changes in tone to emphasize specific ideas or create humor. His pace varies. He pauses at strategic points.",
+    "Recommendations": [
+      "Continue using vocal variety to maintain audience engagement.",
+      "Practice projecting voice to reach the back of the room without shouting."
+    ],
+    "Relevant Video Section": "0:00-0:05"
+  },
+  "Content & Structure": {
+    "Analysis": "The speech includes an advertisement example followed by personal anecdote. Structure is a bit scattered as the speaker shifts subjects rapidly.",
+    "Recommendations": [
+      "Organize content into clearly defined sections.",
+      "Avoid abrupt changes in topic or tone.",
+      "Start with a compelling attention grabber to set the tone."
+    ],
+    "Relevant Video Section": "0:40-1:21"
+  },
+  "Nervousness/Comfort": {
+    "Analysis": "The speaker appears comfortable and confident. His voice and movements show a certain level of expertise and familiarity with the topic and presentation setting.",
+    "Recommendations": [
+      "Maintain your level of comfort and confidence.",
+      "Channel any residual nervous energy into positive engagement with the audience."
+    ],
+    "Relevant Video Section": "0:01-0:09"
+  },
+  "Summary": {
+    "Overall Assessment": "The speaker delivers an informative and engaging presentation. His content is interesting. The speaker has a clear presentation style. There are opportunities to improve organization and structure.",
+    "Actionable Steps": [
+      "Develop a structured outline to ensure a logical flow of information.",
+      "Incorporate more deliberate pacing to emphasize key points.",
+      "Continue to interact with the audience with natural gestures and eye contact."
+    ]
+  }
 }
