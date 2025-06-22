@@ -17,7 +17,10 @@ def interview(video):
     output_file = 'output_audio.mp3'
 
     # Extract audio from video
-    ffmpeg.input(input_file).output(output_file).run()
+    ffmpeg.input(input_file) \
+      .output(output_file) \
+      .overwrite_output() \
+      .run()
     print("✅ MP3 file created!")
 
     client = genai.Client(api_key="AIzaSyAgvQVCGwnj7qYQLK55XPnpaRspJtxp_4I")
