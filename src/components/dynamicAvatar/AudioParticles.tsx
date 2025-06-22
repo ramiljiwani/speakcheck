@@ -26,7 +26,7 @@ export const AudioParticles: React.FC<AudioParticlesProps> = ({
   baseWaveAmp   = 0.02,
   audioWaveAmp  = 0.08,
   idleWaveAmp   = 0.005,
-  idleSpeed     = 0.2,
+  idleSpeed     = 0.5,
   smoothFactor  = 0.05,
 }) => {
   const meshRef = useRef<THREE.Points>(null);
@@ -36,21 +36,25 @@ export const AudioParticles: React.FC<AudioParticlesProps> = ({
   const rootStyles = getComputedStyle(document.documentElement);
   const particleColor = rootStyles.getPropertyValue('--color-primary-muted').trim();
 
-  // Precompute directions and phases for motion
-  const { baseDirs, waveDirs1, waveDirs2, phases } = useMemo(() => {
+  // Precompute directions, radii, and phases for motion
+  const { baseDirs, waveDirs1, waveDirs2, phases, idleRadii } = useMemo(() => {
     const bArr = new Float32Array(count * 3);
     const d1Arr = new Float32Array(count * 3);
     const d2Arr = new Float32Array(count * 3);
     const pArr = new Float32Array(count);
+    const rIdle = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
       // radial unit direction
       const z = 2 * Math.random() - 1;
       const t = Math.random() * Math.PI * 2;
-      const r = Math.sqrt(1 - z * z);
-      bArr[3*i]   = r * Math.cos(t);
-      bArr[3*i+1] = r * Math.sin(t);
+      const rUnit = Math.sqrt(1 - z * z);
+      bArr[3*i]   = rUnit * Math.cos(t);
+      bArr[3*i+1] = rUnit * Math.sin(t);
       bArr[3*i+2] = z;
+
+      // assign each particle an idle radius within sphere
+      rIdle[i] = minRadius * Math.cbrt(Math.random());
 
       // random direction 1
       let x1 = Math.random() * 2 - 1;
@@ -72,8 +76,8 @@ export const AudioParticles: React.FC<AudioParticlesProps> = ({
 
       pArr[i] = Math.random() * Math.PI * 2;
     }
-    return { baseDirs: bArr, waveDirs1: d1Arr, waveDirs2: d2Arr, phases: pArr };
-  }, [count]);
+    return { baseDirs: bArr, waveDirs1: d1Arr, waveDirs2: d2Arr, phases: pArr, idleRadii: rIdle };
+  }, [count, minRadius]);
 
   useFrame((state, delta) => {
     const mesh = meshRef.current;
@@ -84,10 +88,10 @@ export const AudioParticles: React.FC<AudioParticlesProps> = ({
     const bass = freqData.length > 1 ? freqData[1] / 255 : 0;
     const playing = !!audioRef.current && !audioRef.current.paused;
 
-    // compute raw target radius
+    // compute raw target radius for active
     const maxR = baseRadius * (1 + radiusFactor);
     const rawTarget = minRadius + (maxR - minRadius) * (playing ? bass : 0);
-    // smooth radius (frame rate independent)
+    // smooth radius
     const k = 1 - Math.pow(1 - smoothFactor, delta * 60);
     radiusRef.current = THREE.MathUtils.lerp(radiusRef.current, rawTarget, k);
     const dynamicR = radiusRef.current;
@@ -99,7 +103,6 @@ export const AudioParticles: React.FC<AudioParticlesProps> = ({
     const internalSpeed = idleSpeed;
     const internalAmp   = idleWaveAmp;
 
-    // update particles
     for (let i = 0; i < count; i++) {
       const bi = 3 * i;
       const bx = baseDirs[bi], by = baseDirs[bi+1], bz = baseDirs[bi+2];
@@ -107,27 +110,31 @@ export const AudioParticles: React.FC<AudioParticlesProps> = ({
       const d2x = waveDirs2[bi], d2y = waveDirs2[bi+1], d2z = waveDirs2[bi+2];
       const ph  = phases[i];
 
-      // base pulsating
-      let x = bx * dynamicR;
-      let y = by * dynamicR;
-      let z = bz * dynamicR;
+      let x, y, z;
+      if (playing) {
+        // pulsating shell
+        x = bx * dynamicR;
+        y = by * dynamicR;
+        z = bz * dynamicR;
+      } else {
+        // idle: move within min sphere
+        const r0 = idleRadii[i];
+        x = bx * r0;
+        y = by * r0;
+        z = bz * r0;
+      }
 
-      // surface oscillation
+      // add oscillations
       const w1 = Math.sin(t * surfSpeed + ph) * surfAmp;
-      x += d1x * w1;
-      y += d1y * w1;
-      z += d1z * w1;
-
-      // internal smooth wave
+      x += d1x * w1; y += d1y * w1; z += d1z * w1;
       const w2 = Math.sin(t * internalSpeed + ph) * internalAmp;
-      x += d2x * w2;
-      y += d2y * w2;
-      z += d2z * w2;
+      x += d2x * w2; y += d2y * w2; z += d2z * w2;
 
       posAttr.array[bi]   = x;
       posAttr.array[bi+1] = y;
       posAttr.array[bi+2] = z;
     }
+
     posAttr.needsUpdate = true;
   });
 
