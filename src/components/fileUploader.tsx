@@ -49,7 +49,7 @@ export default function FileUploader() {
 
     return (
         <div className="container card text-center">
-            <h2 className="mb-md">Upload Your Video</h2>
+            <h2 className="mb-md">Upload Your Speech</h2>
             <div>
                 <label className="dropzone mb-md">
                     {file ? file.name : "Click here or drag & drop to select a file"}
