@@ -1,11 +1,14 @@
+import { Canvas } from '@react-three/fiber';
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AudioParticles } from '../components/dynamicAvatar/AudioParticles';
 
 const LiveSpeech: React.FC = () => {
   const videoRef1 = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<BlobPart[]>([]);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [recording, setRecording] = useState(false);
@@ -94,7 +97,7 @@ const LiveSpeech: React.FC = () => {
 
   return (
     <div
-      className="record-root"
+      className="record-main"
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}
     >
       <div style={{ display: 'flex', gap: '1rem', width: '100%' }}>
@@ -106,14 +109,29 @@ const LiveSpeech: React.FC = () => {
           playsInline
           style={{ transform: 'scaleX(-1)', flex: 1 }}
         />
-        <video
-          ref={videoRef2}
-          className="video-preview mirror"
-          muted
-          autoPlay
-          playsInline
-          style={{ transform: 'scaleX(-1)', flex: 1 }}
-        />
+        <div className='video-preview'>
+            <audio
+                ref={audioRef}
+                src="backend/uploads/test.mp3"
+                controls
+                style={{ position: 'absolute', top: 20, left: 20, zIndex: 1 }}
+            />
+            <Canvas camera={{ position: [0, 0, 8] }}>
+                <ambientLight intensity={0.3} />
+                <AudioParticles
+                    audioRef={audioRef}
+                    count={10000}
+                    baseRadius={2.5}
+                    minRadius={2}
+                    radiusFactor={0.5}
+                    baseWaveAmp={0.02}
+                    audioWaveAmp={0.02}
+                    idleWaveAmp={0.005}
+                    idleSpeed={0.2}
+                    smoothFactor={0.25}
+                    />
+            </Canvas>
+        </div>
       </div>
 
       <div className="controls" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>

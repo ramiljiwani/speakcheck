@@ -6,6 +6,7 @@
     --color-text-secondary: #4B5563;
     --color-primary: #4F46E5;
     --color-primary-hover: #4338CA;
+    --color-primary-muted: #6761e3;
     --color-secondary: #b1b1b1;
     --color-secondary-hover: #8e8e8e;
   
@@ -284,7 +285,7 @@
 }
 
 .video-preview {
-  width: 100%;
+  width: 'full';
   border: 1px solid var(--color-secondary); /* light border for clarity */
   border-radius: var(--radius-md);
   aspect-ratio: 16/9; /* maintains 16:9 aspect ratio */

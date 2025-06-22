@@ -87,8 +87,15 @@ const RecordSpeech: React.FC = () => {
       .padStart(2, '0')}:${(t % 60).toString().padStart(2, '0')}`;
 
   return (
-    <div className="record-root">
-      <video ref={videoRef} className="video-preview mirror" muted autoPlay playsInline style={{transform: 'scaleX(-1)'}}/>
+    <div className="record-main">
+      <video
+          ref={videoRef}
+          className="video-preview mirror"
+          muted
+          autoPlay
+          playsInline
+          style={{ transform: 'scaleX(-1)', flex: 1 }}
+        />
       <div className="controls">
         <div className="timer"  style={{ fontFamily: 'monospace' }}>{formatTime(seconds)}</div>
         {!recording
