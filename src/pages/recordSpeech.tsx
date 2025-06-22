@@ -69,7 +69,7 @@ const RecordSpeech: React.FC = () => {
     const form = new FormData();
     form.append('file', blob, 'recording.webm');
     try {
-      const res = await fetch('http://127.0.0.1:5000/upload', {
+      const res = await fetch('http://127.0.0.1:5001/upload', {
         method: 'POST',
         body: form,
       });

@@ -73,7 +73,7 @@ export default function VideoFeedbackPage() {
           className="h1"
           style={{ paddingTop: '1vh', marginBottom: '10vh' }}
       >
-          speakcheck
+          SpeakCheck
       </h1>
       <div
         className="container flex"

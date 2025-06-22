@@ -23,7 +23,7 @@ def interview(video):
       .run()
     print("✅ MP3 file created!")
 
-    client = genai.Client(api_key="AIzaSyAgvQVCGwnj7qYQLK55XPnpaRspJtxp_4I")
+    client = genai.Client(api_key="AIzaSyCB1p1enYCw5nHC8Ek4KRZdqmBBzZsOUXA")
 
     # Upload the MP3 file
     myfile = client.files.upload(file=output_file)
@@ -56,7 +56,7 @@ def interview(video):
             speech_config=types.SpeechConfig(
                 voice_config=types.VoiceConfig(
                     prebuilt_voice_config=types.PrebuiltVoiceConfig(
-                        voice_name='Kore'
+                        voice_name='Charon'
                     )
                 )
             )

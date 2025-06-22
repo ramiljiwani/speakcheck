@@ -15,7 +15,7 @@ export default function Home() {
                 className="h1"
                 style={{ paddingTop: '1vh', marginBottom: '10vh' }}
             >
-                speakcheck
+                SpeakCheck
             </h1>
             {/* Tab Bar */}
         <div className="tab-bar">

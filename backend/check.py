@@ -72,7 +72,7 @@ Be as precise as possible about timestamps (e.g. "0:07-0:14"). Do not output any
 
 def analyze(video):
     # Step 1: Set up the Gemini client
-    client = genai.Client(api_key="AIzaSyAgvQVCGwnj7qYQLK55XPnpaRspJtxp_4I")
+    client = genai.Client(api_key="AIzaSyCB1p1enYCw5nHC8Ek4KRZdqmBBzZsOUXA")
 
     # Step 2: Upload the video
     myfile = client.files.upload(file=video)
