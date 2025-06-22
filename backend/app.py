@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 import subprocess
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "google-credentials.json"
+
 app = Flask(__name__)
 CORS(app)
 
