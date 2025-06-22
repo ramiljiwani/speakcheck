@@ -114,6 +114,7 @@ const LiveSpeech: React.FC = () => {
                 ref={audioRef}
                 src="backend/uploads/test.mp3"
                 controls
+                autoPlay
                 style={{ position: 'absolute', top: 20, left: 20, zIndex: 1 }}
             />
             <Canvas camera={{ position: [0, 0, 8] }}>

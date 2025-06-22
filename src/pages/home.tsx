@@ -2,6 +2,7 @@ import { useState } from "react";
 import RecordSpeech from "./recordSpeech";
 import FileUploader from "../components/fileUploader";
 import LiveSpeech from "./live";
+import LiveNew from "./liveNew";
 
 const TABS = ['pitch', 'live', 'upload'] as const;
 type Tab = typeof TABS[number];
@@ -39,7 +40,7 @@ export default function Home() {
 
             {activeTab === 'live' && (
             <div>
-                <LiveSpeech/>
+                <LiveNew/>
             </div>
             )}
 

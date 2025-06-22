@@ -4,6 +4,7 @@ from google.genai import types
 import wave
 import time
 
+
 def wave_file(filename, pcm, channels=1, rate=24000, sample_width=2):
     with wave.open(filename, "wb") as wf:
         wf.setnchannels(channels)
@@ -19,7 +20,7 @@ def interview(video):
     ffmpeg.input(input_file).output(output_file).run()
     print("✅ MP3 file created!")
 
-    client = genai.Client(api_key="AIzaSyAn7RnvWQCA7MrJC-2JnAvIFRc9shSw7DY")
+    client = genai.Client(api_key="AIzaSyAgvQVCGwnj7qYQLK55XPnpaRspJtxp_4I")
 
     # Upload the MP3 file
     myfile = client.files.upload(file=output_file)
@@ -64,6 +65,4 @@ def interview(video):
     file_name = 'out.wav'
     wave_file(file_name, audio_data)
     print("✅ Audio response saved as out.wav")
-
-# Run it
-interview('path/to/video')
+    

@@ -1,21 +1,28 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, Response
+from pathlib import Path
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from check import analyze
-from check import analyze
-import os
+from interview import interview
+import os, time
 import json
-from pathlib import Path
 import subprocess
+from flask_socketio import SocketIO
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+socketio = SocketIO(app, cors_allowed_origins="*")
+
 
 # Set upload folder
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+question_triggered = False
+
 
 def read_feedback_text(path: str = "feedback.json") -> str:
     """
@@ -81,6 +88,44 @@ def upload_file():
         'path': final_path
     }, 200
 
+@app.route('/uploadInterview', methods=['POST'])
+def upload_interview():
+    if 'file' not in request.files:
+        return {'error': 'No file part in the request'}, 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return {'error': 'No file selected'}, 400
+    
+
+    # secure the filename and set up paths
+    original_name = secure_filename(file.filename)
+    ext = Path(original_name).suffix.lower()
+    new_name = 'interUpload' + ext
+    save_path = os.path.join(app.config['UPLOAD_FOLDER'], new_name)
+
+    # 1) Save the uploaded data once
+    file.save(save_path)
+
+    # 2) If it's webm, convert and point to the new file
+    if ext == '.webm':
+        try:
+            final_path = convert_webm_to_mp4(save_path)
+        except subprocess.CalledProcessError as e:
+            return {'error': f'Conversion failed: {e.stderr.decode()}'}, 500
+    else:
+        final_path = save_path
+
+    # 3) Run your analysis on the right file
+    interview(final_path)
+    socketio.emit('question_ready')
+    print("🔔 Emitted question_ready event")
+
+    return {
+        'message': 'File uploaded successfully',
+        'path': final_path
+    }, 200
+
 @app.route('/feedback', methods=['GET'])
 def fetch_feedback():
     """
@@ -115,7 +160,33 @@ def serve_video():
 def processCheck():
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'upload')
     return analyze(filepath)
+
+@app.route('/question', methods=['GET', 'POST'])
+def question():
+    global question_triggered
+    if request.method == 'POST':
+        # Arm the flag
+        question_triggered = True
+        return jsonify({'message': 'question armed'}), 200
+
+    # GET: return the current flag, then consume it
+    flag = question_triggered
+    question_triggered = False
+    return jsonify(flag), 200
+
+@app.route('/audio')
+def serve_audio():
+    """Serve the latest TTS audio, with Range support for streaming."""
+    audio_path = "/Users/ramiljiwani/Desktop/ReactApps/speakcheck/backend/out.wav"
+    if not os.path.exists(audio_path):
+        return {'error': 'Audio not found'}, 404
+    return send_file(
+        audio_path,
+        conditional=True,
+        mimetype='audio/wav',
+    )
     
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # eventlet = green threads; set debug=False in production
+    socketio.run(app, host='0.0.0.0', port=5001, debug=True)
