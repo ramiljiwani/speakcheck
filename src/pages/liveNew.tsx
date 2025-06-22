@@ -92,6 +92,20 @@ const LiveNew: React.FC = () => {
     }
   };
 
+  const finishLive = async () => {
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:5001/check/interUpload0.mp4`,
+        { method: 'POST' }
+      );
+      if (!res.ok) throw new Error(`Check failed: ${res.statusText}`);
+      // optionally you can await res.json() or res.text() here
+      navigate("/inter");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const formatTime = (t: number) =>
     `${Math.floor(t / 60).toString().padStart(2, '0')}:${(t % 60).toString().padStart(2, '0')}`;
 
@@ -113,8 +127,9 @@ const LiveNew: React.FC = () => {
           <button onClick={stopRecording} className="btn-stop">Stop</button>
         )}
         {!recording && videoBlob && (
-          <button onClick={() => uploadVideo(videoBlob)} className="btn-upload">Upload</button>
+          <button onClick={() => uploadVideo(videoBlob)} className="btn-record">Upload</button>
         )}
+        <button onClick={finishLive} className='btn-record'>End Live</button>
       </div>
     </div>
   );

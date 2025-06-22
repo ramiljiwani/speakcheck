@@ -1,56 +1,54 @@
 {
   "Posture & Physical Presence": {
-    "Analysis": "The speaker maintains a relatively still posture. There are no noticeable gestures. The lack of movement could make the presentation less engaging.",
+    "Analysis": "The speaker is positioned in a way that only their head and upper torso are visible. There is little to no movement except for hand gestures, which are infrequent and could be more purposeful. The speaker does not exhibit distracting movements but could benefit from a more open and dynamic presence.",
     "Recommendations": [
-      "Incorporate purposeful hand gestures to emphasize key points.",
-      "Vary posture slightly to maintain audience interest.",
-      "Avoid stiffness by consciously relaxing shoulders and facial muscles."
+      "Incorporate more deliberate hand gestures to emphasize points.",
+      "If possible, adjust the camera to show more of the upper body to allow for more dynamic movement.",
+      "Practice a more open stance, even within the limited view, to project confidence."
     ],
     "Relevant Video Section": "0:00-0:07"
   },
   "Eye Contact": {
-    "Analysis": "The speaker looks directly at the camera, which is good for a virtual setting. It gives the impression of direct eye contact with the viewer. There's no variation.",
+    "Analysis": "The speaker looks directly at the camera, which simulates eye contact with the audience. It seems relatively consistent throughout the brief video, creating some sense of connection. However, without variations, it can feel slightly static.",
     "Recommendations": [
-      "If presenting to a live audience, make sure to distribute eye contact evenly across the room.",
-      "Hold eye contact for 2-3 seconds with individuals to create a connection.",
-      "Practice shifting gaze naturally to avoid a fixed stare."
+      "Slightly vary your gaze as if you are looking at different people in the room.",
+      "Focus your gaze more intentionally to add emphasis to key points."
     ],
     "Relevant Video Section": "0:00-0:07"
   },
   "Vocal Delivery": {
-    "Analysis": "It is hard to analyze because the speaker is not saying anything. The background noise also makes it difficult to analyze. There is no detectable pace, volume, or tone as the speaker is silent.",
+    "Analysis": "The speaker's pace is a little fast, and the tone is relatively monotone. There is a slight hesitancy at the beginning. There are no noticeable filler words.",
     "Recommendations": [
-      "Vary pace and volume to emphasize key points.",
-      "Speak clearly and enunciate each word.",
-      "Practice vocal exercises to improve projection and tone."
+      "Practice varying your pace and tone to make the delivery more engaging.",
+      "Slow down the rate of speech slightly to improve clarity and allow the audience to process information more effectively.",
+      "Vary the volume to emphasize key points."
     ],
     "Relevant Video Section": "0:00-0:07"
   },
   "Content & Structure": {
-    "Analysis": "Impossible to analyze content and structure since the speaker does not speak.",
+    "Analysis": "The speaker provides a brief introduction to the topic - Speakcheck. There's no structured argument or supporting evidence included. The introduction is very brief and it could be elaborated on to hook the audience.",
     "Recommendations": [
-      "Outline the presentation with a clear introduction, main points, and conclusion.",
-      "Support main points with relevant evidence and examples.",
-      "Use transitions to create a smooth and logical flow."
+      "Elaborate on the introduction to create more engagement.",
+      "Provide a clear overview of the main points you intend to cover.",
+      "Include a more compelling and memorable conclusion."
     ],
     "Relevant Video Section": "0:00-0:07"
   },
   "Nervousness/Comfort": {
-    "Analysis": "The speaker appears calm, but this may be because they are not speaking. It's impossible to determine any signs of nervousness or discomfort from this still position.",
+    "Analysis": "The speaker seems relatively composed, but there's a slight stiffness in their posture and a slight hesitancy that could indicate minor nervousness. This quickly resolves. Further assessment would need to be done with a longer video.",
     "Recommendations": [
-      "Practice the presentation to build confidence.",
-      "Take deep breaths to manage any pre-presentation jitters.",
-      "Use positive self-talk to reduce anxiety."
+      "Take a deep breath before starting to reduce initial tension.",
+      "Focus on connecting with the audience (camera) to ease feelings of nervousness."
     ],
-    "Relevant Video Section": "0:00-0:07"
+    "Relevant Video Section": "0:00-0:02"
   },
   "Summary": {
-    "Overall Assessment": "The speaker is still and silent, making it impossible to provide a full assessment. The speaker appears relatively calm and composed.",
+    "Overall Assessment": "The speaker demonstrates potential but could significantly improve with attention to vocal delivery, purposeful gestures, content structure and introductory engagement. The camera angle is limiting.",
     "Actionable Steps": [
-      "Incorporate purposeful hand gestures and movement into presentations.",
-      "Practice vocal delivery to vary pace, volume, and tone.",
-      "Outline the presentation with a clear structure and supporting evidence.",
-      "Practice to build confidence and manage any potential nervousness."
+      "Practice vocal modulation exercises to vary pace, tone, and volume.",
+      "Incorporate deliberate hand gestures to emphasize points and appear more confident.",
+      "Structure content with a clear introduction, main points, and conclusion.",
+      "Elaborate on the introduction to hook the audience and gain their interest."
     ]
   }
 }

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file, Response
+from flask import Flask, request, jsonify, send_file, send_from_directory, abort
 from pathlib import Path
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
@@ -15,6 +15,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+app.config['INTERVIEW_COUNT'] = 0
 
 # Set upload folder
 UPLOAD_FOLDER = 'uploads'
@@ -90,6 +91,8 @@ def upload_file():
 
 @app.route('/uploadInterview', methods=['POST'])
 def upload_interview():
+    count = app.config['INTERVIEW_COUNT']
+    
     if 'file' not in request.files:
         return {'error': 'No file part in the request'}, 400
 
@@ -97,11 +100,11 @@ def upload_interview():
     if file.filename == '':
         return {'error': 'No file selected'}, 400
     
-
+    
     # secure the filename and set up paths
     original_name = secure_filename(file.filename)
     ext = Path(original_name).suffix.lower()
-    new_name = 'interUpload' + ext
+    new_name = f'interUpload{count}' + ext
     save_path = os.path.join(app.config['UPLOAD_FOLDER'], new_name)
 
     # 1) Save the uploaded data once
@@ -115,9 +118,12 @@ def upload_interview():
             return {'error': f'Conversion failed: {e.stderr.decode()}'}, 500
     else:
         final_path = save_path
+    app.config['INTERVIEW_COUNT'] += 1
+    
 
     # 3) Run your analysis on the right file
     interview(final_path)
+    analyze(final_path)
     socketio.emit('question_ready')
     print("🔔 Emitted question_ready event")
 
@@ -139,27 +145,31 @@ def fetch_feedback():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/video', methods=['GET'])
-def serve_video():
-    # check for mov first, then mp4
-    for ext in ('.mov', '.mp4'):
-        filename = f'upload{ext}'
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        if os.path.exists(filepath):
-            # send_file needs the full file path, not the directory
-            # 'conditional=True' makes Flask handle Range requests
-            return send_file(
-                filepath,
-                conditional=True,
-                mimetype=f'video/{ext.lstrip(".")}'
-            )
-    # no file at all
-    return jsonify({'error': 'No uploaded video found'}), 404
+@app.route('/video/<path:filename>')
+def serve_video(filename):
+    # ensure we’re only ever sending things out of the uploads folder
+    uploads = app.config['UPLOAD_FOLDER']
+    safe_name = secure_filename(filename)
+    full_path = os.path.join(uploads, safe_name)
 
-@app.route('/check', methods=['POST'])
-def processCheck():
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'upload')
-    return analyze(filepath)
+    if not os.path.exists(full_path):
+        return abort(404, description="Video not found")
+
+    # mimetype will be inferred from the filename
+    return send_from_directory(uploads, safe_name, conditional=True)
+
+@app.route('/check/<path:filename>', methods=['POST'])
+def processCheck(filename):
+    # build the real path under uploads/
+    full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    # 404 if they asked for something that doesn’t exist
+    if not os.path.exists(full_path):
+        abort(404, description=f"File not found: {filename}")
+
+    # now give analyze the correct path
+    result = analyze(full_path)           # assume this returns a dict
+    return jsonify(result), 200
 
 @app.route('/question', methods=['GET', 'POST'])
 def question():

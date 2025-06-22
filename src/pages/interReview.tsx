@@ -35,11 +35,11 @@ const SECTIONS: (keyof Feedback)[] = [
   'Summary',
 ];
 
-export default function VideoFeedbackPage() {
+export default function InterFeedbackPage() {
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<keyof Feedback>(SECTIONS[0]);
-  const [videoFile, setVideoFile] = useState("upload.mp4");
+  const [videoFile, setVideoFile] = useState("interUpload0.mp4");
   const navigate = useNavigate();
 
   useEffect(() => {

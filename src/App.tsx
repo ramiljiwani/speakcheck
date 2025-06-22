@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { io, Socket } from 'socket.io-client';
 import Home from './pages/home';
 import VideoFeedbackPage from './pages/videoReview';
+import InterFeedbackPage from './pages/interReview';
 
 function App() {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -59,6 +60,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/display" element={<VideoFeedbackPage />} />
+          <Route path="/inter" element={<InterFeedbackPage />} />
         </Routes>
       </BrowserRouter>
     </>
