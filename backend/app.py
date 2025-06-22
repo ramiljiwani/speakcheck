@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from check import analyze
@@ -101,9 +101,14 @@ def serve_video():
         filename = f'upload{ext}'
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         if os.path.exists(filepath):
-            # will set the correct Content-Type based on extension
-            return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=False)
-    
+            # send_file needs the full file path, not the directory
+            # 'conditional=True' makes Flask handle Range requests
+            return send_file(
+                filepath,
+                conditional=True,
+                mimetype=f'video/{ext.lstrip(".")}'
+            )
+    # no file at all
     return jsonify({'error': 'No uploaded video found'}), 404
 
 @app.route('/check', methods=['POST'])

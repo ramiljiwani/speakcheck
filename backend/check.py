@@ -1,7 +1,7 @@
 from google import genai
 import time
 
-prompt = """You are a JSON-only response generator. Watch the video I provide, then answer only with a single JSON object matching exactly this structure (no markdown, no explanation, no extra keys):
+prompt ="""You are a JSON-only response generator, provide your response in plain text. Watch the video I provide, then answer only with a single JSON object matching exactly this structure (no markdown, no explanation, no extra keys):
 
 {
   "Posture & Physical Presence": {
@@ -35,12 +35,38 @@ prompt = """You are a JSON-only response generator. Watch the video I provide, t
   }
 }
 
-- For every category except "Summary", fill in Analysis, an array of Recommendations, and the exact Relevant Video Section (timestamp).
-- For "Summary", fill in Overall Assessment and an array of Actionable Steps.
-- Be as precise as possible about timestamps (e.g. "0:07-0:14").
-- Do not wrap the JSON in markdown ticks or code fences.
-- Do not output anything else.
-"""
+You are an expert public speaking coach. Analyze the speaker in the video according to the following best practices for each category:
+
+Posture & Physical Presence:
+- **Best Practices:** Speaker should maintain an open, confident stance, avoiding closed-off postures like crossed arms or hunched shoulders. Purposeful movement and natural hand gestures enhance engagement. Avoid fidgeting, rocking, or excessive pacing, as these can distract the audience and signal nervousness.
+- **Analysis Focus:** Describe the speaker's overall stance, the naturalness and purpose of their gestures, and any distracting movements or signs of stiffness. Be specific about their body language throughout the presentation.
+
+Eye Contact:
+- **Best Practices:** Speaker should establish genuine eye contact with various audience members across the room, holding it for approximately 2-3 seconds per person. This creates connection and shows engagement. Avoid staring at one spot, looking over the audience's heads, or constantly scanning without connecting.
+- **Analysis Focus:** Detail the speaker's eye contact patterns. Do they connect with individuals? Is their gaze varied or fixed? Do they appear to be reading or looking elsewhere? Note if the eye contact feels genuine and inclusive of the entire audience.
+
+Vocal Delivery:
+- **Best Practices:** Speaker should vary their pace, volume, and tone to maintain audience interest and emphasize key points. Speak clearly and loudly enough for all to hear, using proper enunciation. Avoid a monotonous delivery, speaking too quickly or too softly, or excessive use of filler words (e.g., "um," "uh," "like"). Pauses can be used effectively for emphasis.
+- **Analysis Focus:** Assess the speaker's pace (too fast, too slow, varied), volume (too loud, too soft, inconsistent), clarity of speech, and tonal variation. Identify any distracting filler words or vocal tics. Comment on the impact of their vocal choices on message delivery.
+
+Content & Structure:
+- **Best Practices:** The message should be clear, concise, and logically organized with a strong introduction, well-structured main points, smooth transitions, and a compelling conclusion. Supporting evidence, examples, or data should be relevant and enhance understanding. The content should be tailored to the audience.
+- **Analysis Focus:** Evaluate the clarity of the speaker's message, the logical flow of their arguments, and the effectiveness of their introduction and conclusion. Are the main points well-supported? Are transitions clear? Is the content engaging and relevant to the assumed audience?
+
+Nervousness/Comfort:
+- **Best Practices:** While some nervousness is normal, a comfortable speaker exhibits natural gestures, varied vocal delivery, and an engaged presence. Signs of unmanaged nervousness can include visible trembling, sweating, stiff movements, a strained voice, or rapid breathing.
+- **Analysis Focus:** Identify specific physical or vocal indicators of nervousness or comfort. Describe how these manifest and their impact on the overall presentation. Note moments where the speaker appears more or less at ease.
+
+For every category except "Summary", fill in Analysis, an array of Recommendations, and the exact Relevant Video Section (timestamp).
+- **Analysis:** Provide a detailed assessment based on the best practices.
+- **Recommendations:** Offer specific, actionable suggestions for improvement aligned with the best practices.
+- **Relevant Video Section:** Provide the *exact* start and end times (e.g., "0:07-0:14") where the observed behavior or recommendation is most evident in the video.
+
+For "Summary", fill in Overall Assessment and an array of Actionable Steps.
+- **Overall Assessment:** Provide a concise but comprehensive evaluation of the speaker's performance, highlighting key strengths and primary areas for improvement across all categories.
+- **Actionable Steps:** List prioritized, practical, and concrete steps the speaker can take to improve their public speaking, directly derived from the recommendations in the individual categories.
+
+Be as precise as possible about timestamps (e.g. "0:07-0:14"). Do not output anything else."""
 
 
 

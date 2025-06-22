@@ -87,7 +87,7 @@ const RecordSpeech: React.FC = () => {
       .padStart(2, '0')}:${(t % 60).toString().padStart(2, '0')}`;
 
   return (
-    <div className="record-main">
+    <div className="record-main flex-col">
       <video
           ref={videoRef}
           className="video-preview mirror"

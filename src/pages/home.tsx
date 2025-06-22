@@ -7,7 +7,7 @@ const TABS = ['pitch', 'live', 'upload'] as const;
 type Tab = typeof TABS[number];
 
 export default function Home() {
-    const [activeTab, setActiveTab] = useState<Tab>('pitch');
+    const [activeTab, setActiveTab] = useState<Tab>('live');
     return (
         <div className="home flex-col">
             <h1 
