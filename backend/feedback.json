@@ -1,0 +1,47 @@
+{
+  "Posture & Physical Presence": {
+    "Analysis": "The presenter is seated in a gaming chair, maintaining a relatively stable posture. The framing is slightly awkward as the camera is tilted.",
+    "Recommendations": [
+      "Adjust camera angle for a more level and professional framing.",
+      "Maintain a confident and upright posture."
+    ],
+    "Relevant Video Section": "0:00-0:14"
+  },
+  "Eye Contact": {
+    "Analysis": "Makes direct eye contact with the camera.",
+    "Recommendations": [
+      "Maintain consistent eye contact to engage the audience."
+    ],
+    "Relevant Video Section": "0:00-0:14"
+  },
+  "Vocal Delivery": {
+    "Analysis": "Clear and understandable voice. Energetic tone.",
+    "Recommendations": [
+      "Maintain consistent energy throughout."
+    ],
+    "Relevant Video Section": "0:01-0:14"
+  },
+  "Content & Structure": {
+    "Analysis": "Introduces a prototype and mentions it's part one of a project. Ends with a call to action for a part two.",
+    "Recommendations": [
+      "Consider providing more context about the project to hook the audience further.",
+      "Ensure part two is released promptly to capitalize on viewer interest."
+    ],
+    "Relevant Video Section": "0:01-0:14"
+  },
+  "Nervousness/Comfort": {
+    "Analysis": "Appears relatively comfortable and confident in presenting the prototype.",
+    "Recommendations": [
+      "Continue to present with confidence."
+    ],
+    "Relevant Video Section": "0:00-0:14"
+  },
+  "Summary": {
+    "Overall Assessment": "The presenter delivers a brief and engaging introduction to a prototype, setting the stage for a follow-up video. Strong eye contact and clear vocal delivery enhance the presentation.",
+    "Actionable Steps": [
+      "Adjust camera angle.",
+      "Provide additional context on the project.",
+      "Release part two promptly."
+    ]
+  }
+}
