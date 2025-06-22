@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent } from "react";
 
-type UploadStatus = "idle" | "uploading" | "success" | "error";
+type UploadStatus = "idle" | "uploading" | "analyzing" | "success" | "error";
 
 export default function FileUploader() {
     const [file, setFile] = useState<File | null>(null);
@@ -14,55 +14,77 @@ export default function FileUploader() {
         }
 
     async function handleUpload() {
-        if (!file) return;
-        setStatus("uploading");
-        const formData = new FormData();
-        formData.append("file", file);
+    if (!file) return;
+    setStatus("uploading");
 
-        try {
-            const resp = await fetch("http://127.0.0.1:5000/upload", {
-                method: "POST",
-                body: formData,
-            });
-      
-            if (!resp.ok) throw new Error(`Server error: ${resp.statusText}`);
-            setStatus("success");
-          } catch (err) {
-            console.error(err);
-            setStatus("error");
-          }
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const resp = await fetch("http://127.0.0.1:5000/upload", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!resp.ok) throw new Error(`Server error: ${resp.statusText}`);
+
+        setStatus("analyzing");
+
+        // Wait for response to include feedback
+        const data = await resp.json();
+
+        // You can do something with `data.feedbackText` or `data.audioUrl` here
+        console.log("AI feedback:", data);
+
+        setStatus("success");
+    } catch (err) {
+        console.error(err);
+        setStatus("error");
     }
+}
 
     return (
-        <div className="container max-w-md card text-center">
-            <h2 className="mb-md">Upload Your Video</h2>
-            <div>
-                <label className="dropzone mb-md">
-                    {file ? file.name : "Click here or drag & drop to select a file"}
-                    <input
-                    type="file"
-                    accept=".mov,.mp4"
-                    onChange={handleFileChange}
-                    className="input mb-md"
-                    />
-                </label>
-            </div>
-            { file && status !== "uploading" &&
-                <button 
-                    onClick={handleUpload}
-                    className="btn btn-primary mb-md"
-                >
-                    Upload
-                </button>
-            }
-            {status === "success" && (
-            <div className="alert alert-success">
-                Upload successful!
-                </div>
-            )}
-            {status === "error" && (
-            <div className="alert alert-error">Upload failed. Please try again.</div>
-            )}
-        </div>
-    )
+  <div className="container max-w-md card text-center">
+    <h2 className="mb-md">Upload Your Video</h2>
+
+    <div>
+      <label className="dropzone mb-md">
+        {file ? file.name : "Click here or drag & drop to select a file"}
+        <input
+          type="file"
+          accept=".mov,.mp4"
+          onChange={handleFileChange}
+          className="input mb-md"
+        />
+      </label>
+    </div>
+
+    {/* Upload button only appears if there's a file and we're not currently uploading or analyzing */}
+    {file && status === "idle" && (
+      <button onClick={handleUpload} className="btn btn-primary mb-md">
+        Upload
+      </button>
+    )}
+
+    {/* Status messages */}
+    {status === "uploading" && (
+      <div className="alert alert-info">Uploading video...</div>
+    )}
+
+    {status === "analyzing" && (
+      <div className="alert alert-warning">
+        🔍 Analyzing your video... Preparing feedback.
+      </div>
+    )}
+
+    {status === "success" && (
+      <div className="alert alert-success">✅ Upload and feedback successful!</div>
+    )}
+
+    {status === "error" && (
+      <div className="alert alert-error">❌ Upload failed. Please try again.</div>
+    )}
+  </div>
+);
+
 }
